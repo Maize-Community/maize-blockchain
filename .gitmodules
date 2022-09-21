@@ -6,3 +6,7 @@
 	path = mozilla-ca
 	url = https://github.com/Chia-Network/mozilla-ca.git
         branch = main
+[submodule "maize-blockchain-gui"]
+	path = maize-blockchain-gui
+	url = https://github.com/Maize-Community/maize-blockchain-gui
+	branch = renames_1_6_0
