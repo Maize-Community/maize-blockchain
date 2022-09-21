@@ -1,5 +1,5 @@
 [submodule "chia-blockchain-gui"]
-	path = chia-blockchain-gui
+	path = maize-blockchain-gui
 	url = https://github.com/Maize-Community/maize-blockchain-gui
         branch = main
 [submodule "mozilla-ca"]
