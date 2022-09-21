@@ -6,13 +6,13 @@ from maize.util.config import selected_network_address_prefix
 
 
 class AddressType(Enum):
-    XCH = "xch"
+    XMZ = "xmz"
     NFT = "nft"
     DID = "did:maize:"
 
     def hrp(self, config: Dict[str, Any]) -> str:
-        if self == AddressType.XCH:
-            # Special case to map XCH to the current network's address prefix
+        if self == AddressType.XMZ:
+            # Special case to map XMZ to the current network's address prefix
             return selected_network_address_prefix(config)
         return self.value
 
