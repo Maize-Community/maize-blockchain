@@ -8,13 +8,13 @@ from typing import Dict, ItemsView, KeysView, List, Optional, Tuple, ValuesView
 from blspy import G1Element
 from chiapos import DiskProver
 
-from chia.plotting.util import parse_plot_info
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint16, uint64
-from chia.util.misc import VersionedBlob
-from chia.util.streamable import Streamable, streamable
-from chia.wallet.derive_keys import master_sk_to_local_sk
+from maize.plotting.util import parse_plot_info
+from maize.types.blockchain_format.proof_of_space import ProofOfSpace
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.ints import uint16, uint64
+from maize.util.misc import VersionedBlob
+from maize.util.streamable import Streamable, streamable
+from maize.wallet.derive_keys import master_sk_to_local_sk
 
 log = logging.getLogger(__name__)
 

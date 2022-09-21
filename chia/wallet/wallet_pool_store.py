@@ -1,9 +1,9 @@
 import logging
 from typing import List, Tuple
 
-from chia.types.coin_spend import CoinSpend
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.ints import uint32
+from maize.types.coin_spend import CoinSpend
+from maize.util.db_wrapper import DBWrapper2
+from maize.util.ints import uint32
 
 log = logging.getLogger(__name__)
 

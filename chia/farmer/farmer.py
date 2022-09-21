@@ -9,14 +9,14 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 import aiohttp
 from blspy import AugSchemeMPL, G1Element, G2Element, PrivateKey
 
-import chia.server.ws_connection as ws  # lgtm [py/import-and-import-from]
-from chia.consensus.constants import ConsensusConstants
-from chia.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
-from chia.plot_sync.delta import Delta
-from chia.plot_sync.receiver import Receiver
-from chia.pools.pool_config import PoolWalletConfig, add_auth_key, load_pool_config
-from chia.protocols import farmer_protocol, harvester_protocol
-from chia.protocols.pool_protocol import (
+import maize.server.ws_connection as ws  # lgtm [py/import-and-import-from]
+from maize.consensus.constants import ConsensusConstants
+from maize.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
+from maize.plot_sync.delta import Delta
+from maize.plot_sync.receiver import Receiver
+from maize.pools.pool_config import PoolWalletConfig, add_auth_key, load_pool_config
+from maize.protocols import farmer_protocol, harvester_protocol
+from maize.protocols.pool_protocol import (
     AuthenticationPayload,
     ErrorResponse,
     GetFarmerResponse,
@@ -27,28 +27,28 @@ from chia.protocols.pool_protocol import (
     PutFarmerRequest,
     get_current_authentication_token,
 )
-from chia.protocols.protocol_message_types import ProtocolMessageTypes
-from chia.server.outbound_message import NodeType, make_msg
-from chia.server.server import ssl_context_for_root
-from chia.server.ws_connection import WSChiaConnection
-from chia.ssl.create_ssl import get_mozilla_ca_crt
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.bech32m import decode_puzzle_hash
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.config import config_path_for_filename, load_config, lock_and_load_config, save_config
-from chia.util.errors import KeychainProxyConnectionFailure
-from chia.util.hash import std_hash
-from chia.util.ints import uint8, uint16, uint32, uint64
-from chia.util.keychain import Keychain
-from chia.wallet.derive_keys import (
+from maize.protocols.protocol_message_types import ProtocolMessageTypes
+from maize.server.outbound_message import NodeType, make_msg
+from maize.server.server import ssl_context_for_root
+from maize.server.ws_connection import WSMaizeConnection
+from maize.ssl.create_ssl import get_mozilla_ca_crt
+from maize.types.blockchain_format.proof_of_space import ProofOfSpace
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.bech32m import decode_puzzle_hash
+from maize.util.byte_types import hexstr_to_bytes
+from maize.util.config import config_path_for_filename, load_config, lock_and_load_config, save_config
+from maize.util.errors import KeychainProxyConnectionFailure
+from maize.util.hash import std_hash
+from maize.util.ints import uint8, uint16, uint32, uint64
+from maize.util.keychain import Keychain
+from maize.wallet.derive_keys import (
     find_authentication_sk,
     find_owner_sk,
     master_sk_to_farmer_sk,
     master_sk_to_pool_sk,
     match_address_to_sk,
 )
-from chia.wallet.puzzles.singleton_top_layer import SINGLETON_MOD
+from maize.wallet.puzzles.singleton_top_layer import SINGLETON_MOD
 
 singleton_mod_hash = SINGLETON_MOD.get_tree_hash()
 
@@ -129,7 +129,7 @@ class Farmer:
         return await keychain_proxy.get_all_private_keys()
 
     async def setup_keys(self) -> bool:
-        no_keys_error_str = "No keys exist. Please run 'chia keys generate' or open the UI."
+        no_keys_error_str = "No keys exist. Please run 'maize keys generate' or open the UI."
         try:
             self.all_root_sks: List[PrivateKey] = [sk for sk, _ in await self.get_all_private_keys()]
         except KeychainProxyConnectionFailure:
@@ -206,7 +206,7 @@ class Farmer:
     def _set_state_changed_callback(self, callback: Callable):
         self.state_changed_callback = callback
 
-    async def on_connect(self, peer: WSChiaConnection):
+    async def on_connect(self, peer: WSMaizeConnection):
         self.state_changed("add_connection", {})
 
         async def handshake_task():
@@ -251,7 +251,7 @@ class Farmer:
             ErrorResponse(uint16(PoolErrorCode.REQUEST_FAILED.value), error_message).to_json_dict()
         )
 
-    def on_disconnect(self, connection: ws.WSChiaConnection):
+    def on_disconnect(self, connection: ws.WSMaizeConnection):
         self.log.info(f"peer disconnected {connection.get_peer_logging()}")
         self.state_changed("close_connection", {})
         if connection.connection_type is NodeType.HARVESTER:

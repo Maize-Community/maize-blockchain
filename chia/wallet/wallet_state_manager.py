@@ -12,35 +12,35 @@ from typing import Any, Callable, Dict, Iterator, List, Optional, Set, Tuple
 import aiosqlite
 from blspy import G1Element, PrivateKey
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.coinbase import farmer_parent_id, pool_parent_id
-from chia.consensus.constants import ConsensusConstants
-from chia.data_layer.data_layer_wallet import DataLayerWallet
-from chia.data_layer.dl_wallet_store import DataLayerStore
-from chia.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH, solution_to_pool_state
-from chia.pools.pool_wallet import PoolWallet
-from chia.protocols import wallet_protocol
-from chia.protocols.wallet_protocol import CoinState
-from chia.server.server import ChiaServer
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_spend import CoinSpend
-from chia.types.full_block import FullBlock
-from chia.types.mempool_inclusion_status import MempoolInclusionStatus
-from chia.util.bech32m import encode_puzzle_hash
-from chia.util.db_synchronous import db_synchronous_on
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.errors import Err
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.util.lru_cache import LRUCache
-from chia.util.path import path_from_root
-from chia.wallet.cat_wallet.cat_constants import DEFAULT_CATS
-from chia.wallet.cat_wallet.cat_utils import construct_cat_puzzle, match_cat_puzzle
-from chia.wallet.cat_wallet.cat_wallet import CATWallet
-from chia.wallet.derivation_record import DerivationRecord
-from chia.wallet.derive_keys import (
+from maize.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from maize.consensus.coinbase import farmer_parent_id, pool_parent_id
+from maize.consensus.constants import ConsensusConstants
+from maize.data_layer.data_layer_wallet import DataLayerWallet
+from maize.data_layer.dl_wallet_store import DataLayerStore
+from maize.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH, solution_to_pool_state
+from maize.pools.pool_wallet import PoolWallet
+from maize.protocols import wallet_protocol
+from maize.protocols.wallet_protocol import CoinState
+from maize.server.server import MaizeServer
+from maize.server.ws_connection import WSMaizeConnection
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.program import Program
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.coin_spend import CoinSpend
+from maize.types.full_block import FullBlock
+from maize.types.mempool_inclusion_status import MempoolInclusionStatus
+from maize.util.bech32m import encode_puzzle_hash
+from maize.util.db_synchronous import db_synchronous_on
+from maize.util.db_wrapper import DBWrapper2
+from maize.util.errors import Err
+from maize.util.ints import uint8, uint32, uint64, uint128
+from maize.util.lru_cache import LRUCache
+from maize.util.path import path_from_root
+from maize.wallet.cat_wallet.cat_constants import DEFAULT_CATS
+from maize.wallet.cat_wallet.cat_utils import construct_cat_puzzle, match_cat_puzzle
+from maize.wallet.cat_wallet.cat_wallet import CATWallet
+from maize.wallet.derivation_record import DerivationRecord
+from maize.wallet.derive_keys import (
     master_sk_to_wallet_sk,
     master_sk_to_wallet_sk_unhardened,
     master_sk_to_wallet_sk_intermediate,
@@ -48,38 +48,38 @@ from chia.wallet.derive_keys import (
     master_sk_to_wallet_sk_unhardened_intermediate,
     _derive_path_unhardened,
 )
-from chia.wallet.wallet_protocol import WalletProtocol
-from chia.wallet.did_wallet.did_wallet import DIDWallet
-from chia.wallet.did_wallet.did_wallet_puzzles import DID_INNERPUZ_MOD, create_fullpuz, match_did_puzzle
-from chia.wallet.key_val_store import KeyValStore
-from chia.wallet.nft_wallet.nft_info import NFTWalletInfo
-from chia.wallet.nft_wallet.nft_puzzles import get_metadata_and_phs, get_new_owner_did
-from chia.wallet.nft_wallet.nft_wallet import NFTWallet
-from chia.wallet.nft_wallet.uncurry_nft import UncurriedNFT
-from chia.wallet.notification_manager import NotificationManager
-from chia.wallet.outer_puzzles import AssetType
-from chia.wallet.puzzle_drivers import PuzzleInfo
-from chia.wallet.puzzles.cat_loader import CAT_MOD, CAT_MOD_HASH
-from chia.wallet.settings.user_settings import UserSettings
-from chia.wallet.trade_manager import TradeManager
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.util.address_type import AddressType
-from chia.wallet.util.compute_hints import compute_coin_hints
-from chia.wallet.util.transaction_type import TransactionType
-from chia.wallet.util.wallet_sync_utils import last_change_height_cs
-from chia.wallet.util.wallet_types import WalletType
-from chia.wallet.wallet import Wallet
-from chia.wallet.wallet_blockchain import WalletBlockchain
-from chia.wallet.wallet_coin_record import WalletCoinRecord
-from chia.wallet.wallet_coin_store import WalletCoinStore
-from chia.wallet.wallet_info import WalletInfo
-from chia.wallet.wallet_interested_store import WalletInterestedStore
-from chia.wallet.wallet_nft_store import WalletNftStore
-from chia.wallet.wallet_pool_store import WalletPoolStore
-from chia.wallet.wallet_puzzle_store import WalletPuzzleStore
-from chia.wallet.wallet_transaction_store import WalletTransactionStore
-from chia.wallet.wallet_user_store import WalletUserStore
-from chia.wallet.uncurried_puzzle import uncurry_puzzle
+from maize.wallet.wallet_protocol import WalletProtocol
+from maize.wallet.did_wallet.did_wallet import DIDWallet
+from maize.wallet.did_wallet.did_wallet_puzzles import DID_INNERPUZ_MOD, create_fullpuz, match_did_puzzle
+from maize.wallet.key_val_store import KeyValStore
+from maize.wallet.nft_wallet.nft_info import NFTWalletInfo
+from maize.wallet.nft_wallet.nft_puzzles import get_metadata_and_phs, get_new_owner_did
+from maize.wallet.nft_wallet.nft_wallet import NFTWallet
+from maize.wallet.nft_wallet.uncurry_nft import UncurriedNFT
+from maize.wallet.notification_manager import NotificationManager
+from maize.wallet.outer_puzzles import AssetType
+from maize.wallet.puzzle_drivers import PuzzleInfo
+from maize.wallet.puzzles.cat_loader import CAT_MOD, CAT_MOD_HASH
+from maize.wallet.settings.user_settings import UserSettings
+from maize.wallet.trade_manager import TradeManager
+from maize.wallet.transaction_record import TransactionRecord
+from maize.wallet.util.address_type import AddressType
+from maize.wallet.util.compute_hints import compute_coin_hints
+from maize.wallet.util.transaction_type import TransactionType
+from maize.wallet.util.wallet_sync_utils import last_change_height_cs
+from maize.wallet.util.wallet_types import WalletType
+from maize.wallet.wallet import Wallet
+from maize.wallet.wallet_blockchain import WalletBlockchain
+from maize.wallet.wallet_coin_record import WalletCoinRecord
+from maize.wallet.wallet_coin_store import WalletCoinStore
+from maize.wallet.wallet_info import WalletInfo
+from maize.wallet.wallet_interested_store import WalletInterestedStore
+from maize.wallet.wallet_nft_store import WalletNftStore
+from maize.wallet.wallet_pool_store import WalletPoolStore
+from maize.wallet.wallet_puzzle_store import WalletPuzzleStore
+from maize.wallet.wallet_transaction_store import WalletTransactionStore
+from maize.wallet.wallet_user_store import WalletUserStore
+from maize.wallet.uncurried_puzzle import uncurry_puzzle
 
 
 class WalletStateManager:
@@ -121,7 +121,7 @@ class WalletStateManager:
     coin_store: WalletCoinStore
     interested_store: WalletInterestedStore
     multiprocessing_context: multiprocessing.context.BaseContext
-    server: ChiaServer
+    server: MaizeServer
     root_path: Path
     wallet_node: Any
     pool_store: WalletPoolStore
@@ -136,7 +136,7 @@ class WalletStateManager:
         config: Dict,
         db_path: Path,
         constants: ConsensusConstants,
-        server: ChiaServer,
+        server: MaizeServer,
         root_path: Path,
         wallet_node,
         name: str = None,
@@ -613,7 +613,7 @@ class WalletStateManager:
         return removals
 
     async def determine_coin_type(
-        self, peer: WSChiaConnection, coin_state: CoinState, fork_height: Optional[uint32]
+        self, peer: WSMaizeConnection, coin_state: CoinState, fork_height: Optional[uint32]
     ) -> Tuple[Optional[uint32], Optional[WalletType]]:
         if coin_state.created_height is not None and (
             self.is_pool_reward(uint32(coin_state.created_height), coin_state.coin)
@@ -757,7 +757,7 @@ class WalletStateManager:
         parent_coin_state: CoinState,
         coin_state: CoinState,
         coin_spend: CoinSpend,
-        peer: WSChiaConnection,
+        peer: WSMaizeConnection,
     ) -> Tuple[Optional[uint32], Optional[WalletType]]:
         """
         Handle the new coin when it is a DID
@@ -915,7 +915,7 @@ class WalletStateManager:
     async def new_coin_state(
         self,
         coin_states: List[CoinState],
-        peer: WSChiaConnection,
+        peer: WSMaizeConnection,
         fork_height: Optional[uint32],
     ) -> None:
         # TODO: add comment about what this method does
@@ -1331,7 +1331,7 @@ class WalletStateManager:
         all_unconfirmed_transaction_records: List[TransactionRecord],
         wallet_id: uint32,
         wallet_type: WalletType,
-        peer: WSChiaConnection,
+        peer: WSMaizeConnection,
         coin_name: bytes32,
     ) -> None:
         """

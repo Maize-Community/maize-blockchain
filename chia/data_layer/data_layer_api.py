@@ -1,7 +1,7 @@
 import logging
 
-from chia.data_layer.data_layer import DataLayer
-from chia.server.server import ChiaServer
+from maize.data_layer.data_layer import DataLayer
+from maize.server.server import MaizeServer
 
 
 class DataLayerAPI:
@@ -14,7 +14,7 @@ class DataLayerAPI:
     #     self.full_node.state_changed_callback = callback
 
     @property
-    def server(self) -> ChiaServer:
+    def server(self) -> MaizeServer:
         return self.data_layer.server
 
     @property

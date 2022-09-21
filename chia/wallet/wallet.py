@@ -5,28 +5,28 @@ from typing import Any, Dict, List, Optional, Set, TYPE_CHECKING
 
 from blspy import G1Element
 
-from chia.consensus.cost_calculator import NPCResult
-from chia.full_node.bundle_tools import simple_solution_generator
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.types.announcement import Announcement
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_spend import CoinSpend
-from chia.types.generator_types import BlockGenerator
-from chia.types.spend_bundle import SpendBundle
-from chia.util.hash import std_hash
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.wallet.coin_selection import select_coins
-from chia.wallet.derivation_record import DerivationRecord
-from chia.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
+from maize.consensus.cost_calculator import NPCResult
+from maize.full_node.bundle_tools import simple_solution_generator
+from maize.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from maize.types.announcement import Announcement
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.program import Program, SerializedProgram
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.coin_spend import CoinSpend
+from maize.types.generator_types import BlockGenerator
+from maize.types.spend_bundle import SpendBundle
+from maize.util.hash import std_hash
+from maize.util.ints import uint8, uint32, uint64, uint128
+from maize.wallet.coin_selection import select_coins
+from maize.wallet.derivation_record import DerivationRecord
+from maize.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
     DEFAULT_HIDDEN_PUZZLE_HASH,
     calculate_synthetic_secret_key,
     puzzle_for_pk,
     puzzle_hash_for_pk,
     solution_for_conditions,
 )
-from chia.wallet.puzzles.puzzle_utils import (
+from maize.wallet.puzzles.puzzle_utils import (
     make_assert_absolute_seconds_exceeds_condition,
     make_assert_coin_announcement,
     make_assert_my_coin_id_condition,
@@ -36,17 +36,17 @@ from chia.wallet.puzzles.puzzle_utils import (
     make_create_puzzle_announcement,
     make_reserve_fee_condition,
 )
-from chia.wallet.secret_key_store import SecretKeyStore
-from chia.wallet.sign_coin_spends import sign_coin_spends
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.util.compute_memos import compute_memos
-from chia.wallet.util.transaction_type import TransactionType
-from chia.wallet.util.wallet_types import AmountWithPuzzlehash, WalletType
-from chia.wallet.wallet_coin_record import WalletCoinRecord
-from chia.wallet.wallet_info import WalletInfo
+from maize.wallet.secret_key_store import SecretKeyStore
+from maize.wallet.sign_coin_spends import sign_coin_spends
+from maize.wallet.transaction_record import TransactionRecord
+from maize.wallet.util.compute_memos import compute_memos
+from maize.wallet.util.transaction_type import TransactionType
+from maize.wallet.util.wallet_types import AmountWithPuzzlehash, WalletType
+from maize.wallet.wallet_coin_record import WalletCoinRecord
+from maize.wallet.wallet_info import WalletInfo
 
 if TYPE_CHECKING:
-    from chia.server.ws_connection import WSChiaConnection
+    from maize.server.ws_connection import WSMaizeConnection
 
 
 class Wallet:
@@ -520,14 +520,14 @@ class Wallet:
         await self.wallet_state_manager.wallet_node.update_ui()
 
     # This is to be aggregated together with a CAT offer to ensure that the trade happens
-    async def create_spend_bundle_relative_chia(self, chia_amount: int, exclude: List[Coin] = []) -> SpendBundle:
+    async def create_spend_bundle_relative_maize(self, maize_amount: int, exclude: List[Coin] = []) -> SpendBundle:
         list_of_solutions = []
         utxos = None
 
         # If we're losing value then get coins with at least that much value
         # If we're gaining value then our amount doesn't matter
-        if chia_amount < 0:
-            utxos = await self.select_coins(uint64(abs(chia_amount)), exclude)
+        if maize_amount < 0:
+            utxos = await self.select_coins(uint64(abs(maize_amount)), exclude)
         else:
             utxos = await self.select_coins(uint64(0), exclude)
 
@@ -535,7 +535,7 @@ class Wallet:
 
         # Calculate output amount given sum of utxos
         spend_value = sum([coin.amount for coin in utxos])
-        chia_amount = spend_value + chia_amount
+        maize_amount = spend_value + maize_amount
 
         # Create coin solutions for each utxo
         output_created = None
@@ -544,7 +544,7 @@ class Wallet:
             if output_created is None:
                 newpuzhash = await self.get_new_puzzlehash()
                 primaries: List[AmountWithPuzzlehash] = [
-                    {"puzzlehash": newpuzhash, "amount": uint64(chia_amount), "memos": []}
+                    {"puzzlehash": newpuzhash, "amount": uint64(maize_amount), "memos": []}
                 ]
                 solution = self.make_solution(primaries=primaries)
                 output_created = coin
@@ -569,14 +569,14 @@ class Wallet:
             raise Exception(f"insufficient funds in wallet {self.id()}")
         return await self.select_coins(amount, min_coin_amount=min_coin_amount)
 
-    # WSChiaConnection is only imported for type checking
+    # WSMaizeConnection is only imported for type checking
     async def coin_added(
-        self, coin: Coin, height: uint32, peer: WSChiaConnection
+        self, coin: Coin, height: uint32, peer: WSMaizeConnection
     ) -> None:  # pylint: disable=used-before-assignment
         pass
 
 
 if TYPE_CHECKING:
-    from chia.wallet.wallet_protocol import WalletProtocol
+    from maize.wallet.wallet_protocol import WalletProtocol
 
     _dummy: WalletProtocol = Wallet()

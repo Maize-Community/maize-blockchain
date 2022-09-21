@@ -4,18 +4,18 @@ from multiprocessing import freeze_support
 from pathlib import Path
 from typing import Optional, Dict, List, Tuple
 
-from chia.full_node.full_node import FullNode
-from chia.server.outbound_message import NodeType
-from chia.server.start_service import Service, async_run
-from chia.simulator.simulator_full_node_rpc_api import SimulatorFullNodeRpcApi
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.bech32m import decode_puzzle_hash
-from chia.util.chia_logging import initialize_logging
-from chia.util.config import load_config_cli, override_config, load_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.simulator.block_tools import BlockTools, test_constants
-from chia.util.ints import uint16
-from chia.simulator.full_node_simulator import FullNodeSimulator
+from maize.full_node.full_node import FullNode
+from maize.server.outbound_message import NodeType
+from maize.server.start_service import Service, async_run
+from maize.simulator.simulator_full_node_rpc_api import SimulatorFullNodeRpcApi
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.bech32m import decode_puzzle_hash
+from maize.util.maize_logging import initialize_logging
+from maize.util.config import load_config_cli, override_config, load_config
+from maize.util.default_root import DEFAULT_ROOT_PATH
+from maize.simulator.block_tools import BlockTools, test_constants
+from maize.util.ints import uint16
+from maize.simulator.full_node_simulator import FullNodeSimulator
 
 # See: https://bugs.python.org/issue29288
 "".encode("idna")

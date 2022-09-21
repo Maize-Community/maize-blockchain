@@ -4,10 +4,10 @@ import click
 import colorama
 import yaml
 
-from chia.cmds.passphrase_funcs import prompt_for_passphrase, read_passphrase_from_file
-from chia.util.default_root import DEFAULT_KEYS_ROOT_PATH
-from chia.util.file_keyring import FileKeyringContent
-from chia.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE, KeyringWrapper
+from maize.cmds.passphrase_funcs import prompt_for_passphrase, read_passphrase_from_file
+from maize.util.default_root import DEFAULT_KEYS_ROOT_PATH
+from maize.util.file_keyring import FileKeyringContent
+from maize.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE, KeyringWrapper
 from cryptography.exceptions import InvalidTag
 from io import TextIOWrapper
 from pathlib import Path

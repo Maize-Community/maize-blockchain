@@ -5,13 +5,13 @@ from typing import Dict, List, Optional, Tuple, Type
 
 import aiohttp
 
-from chia.cmds.units import units
-from chia.rpc.data_layer_rpc_client import DataLayerRpcClient
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.config import load_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.util.ints import uint16, uint64
+from maize.cmds.units import units
+from maize.rpc.data_layer_rpc_client import DataLayerRpcClient
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.byte_types import hexstr_to_bytes
+from maize.util.config import load_config
+from maize.util.default_root import DEFAULT_ROOT_PATH
+from maize.util.ints import uint16, uint64
 
 # TODO: there seems to be a large amount of repetition in these to dedupe
 
@@ -47,7 +47,7 @@ class get_client:
 async def create_data_store_cmd(rpc_port: Optional[int], fee: Optional[str]) -> None:
     final_fee = None
     if fee is not None:
-        final_fee = uint64(int(Decimal(fee) * units["chia"]))
+        final_fee = uint64(int(Decimal(fee) * units["maize"]))
     try:
         async with get_client(rpc_port) as (client, rpc_port):
             res = await client.create_data_store(fee=final_fee)
@@ -82,7 +82,7 @@ async def update_data_store_cmd(
     store_id_bytes = bytes32.from_hexstr(store_id)
     final_fee = None
     if fee is not None:
-        final_fee = uint64(int(Decimal(fee) * units["chia"]))
+        final_fee = uint64(int(Decimal(fee) * units["maize"]))
     try:
         async with get_client(rpc_port) as (client, rpc_port):
             res = await client.update_data_store(store_id=store_id_bytes, changelist=changelist, fee=final_fee)
@@ -248,7 +248,7 @@ async def add_mirror_cmd(
         store_id_bytes = bytes32.from_hexstr(store_id)
         final_fee = None
         if fee is not None:
-            final_fee = uint64(int(Decimal(fee) * units["chia"]))
+            final_fee = uint64(int(Decimal(fee) * units["maize"]))
         async with get_client(rpc_port) as (client, rpc_port):
             res = await client.add_mirror(
                 store_id=store_id_bytes,
@@ -268,7 +268,7 @@ async def delete_mirror_cmd(rpc_port: Optional[int], coin_id: str, fee: Optional
         coin_id_bytes = bytes32.from_hexstr(coin_id)
         final_fee = None
         if fee is not None:
-            final_fee = uint64(int(Decimal(fee) * units["chia"]))
+            final_fee = uint64(int(Decimal(fee) * units["maize"]))
         async with get_client(rpc_port) as (client, rpc_port):
             res = await client.delete_mirror(
                 coin_id=coin_id_bytes,

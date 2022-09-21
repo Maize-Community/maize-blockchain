@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import List, Optional, Set
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.foliage import Foliage, FoliageTransactionBlock, TransactionsInfo
-from chia.types.blockchain_format.program import SerializedProgram
-from chia.types.blockchain_format.reward_chain_block import RewardChainBlock
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.vdf import VDFProof
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.util.ints import uint32
-from chia.util.streamable import Streamable, streamable
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.foliage import Foliage, FoliageTransactionBlock, TransactionsInfo
+from maize.types.blockchain_format.program import SerializedProgram
+from maize.types.blockchain_format.reward_chain_block import RewardChainBlock
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.blockchain_format.vdf import VDFProof
+from maize.types.end_of_slot_bundle import EndOfSubSlotBundle
+from maize.util.ints import uint32
+from maize.util.streamable import Streamable, streamable
 
 
 @streamable

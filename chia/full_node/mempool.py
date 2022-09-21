@@ -2,9 +2,9 @@ from typing import Dict, List, Optional
 
 from sortedcontainers import SortedDict
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.mempool_item import MempoolItem
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.mempool_item import MempoolItem
 
 
 class Mempool:

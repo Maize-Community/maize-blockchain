@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import List
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.header_block import HeaderBlock
-from chia.util.streamable import Streamable, streamable
+from maize.types.blockchain_format.coin import Coin
+from maize.types.header_block import HeaderBlock
+from maize.util.streamable import Streamable, streamable
 
 
 @streamable

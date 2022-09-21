@@ -8,31 +8,31 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 from typing_extensions import Literal
 
-from chia.data_layer.data_layer_wallet import DataLayerWallet
-from chia.protocols.wallet_protocol import CoinState
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.blockchain_format.coin import Coin, coin_as_list
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.spend_bundle import SpendBundle
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.hash import std_hash
-from chia.util.ints import uint32, uint64
-from chia.wallet.db_wallet.db_wallet_puzzles import ACS_MU_PH
-from chia.wallet.nft_wallet.nft_wallet import NFTWallet
-from chia.wallet.outer_puzzles import AssetType
-from chia.wallet.payment import Payment
-from chia.wallet.puzzle_drivers import PuzzleInfo, Solver
-from chia.wallet.puzzles.load_clvm import load_clvm
-from chia.wallet.trade_record import TradeRecord
-from chia.wallet.trading.offer import NotarizedPayment, Offer
-from chia.wallet.trading.trade_status import TradeStatus
-from chia.wallet.trading.trade_store import TradeStore
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.util.transaction_type import TransactionType
-from chia.wallet.util.wallet_types import WalletType
-from chia.wallet.wallet import Wallet
-from chia.wallet.wallet_coin_record import WalletCoinRecord
+from maize.data_layer.data_layer_wallet import DataLayerWallet
+from maize.protocols.wallet_protocol import CoinState
+from maize.server.ws_connection import WSMaizeConnection
+from maize.types.blockchain_format.coin import Coin, coin_as_list
+from maize.types.blockchain_format.program import Program
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.spend_bundle import SpendBundle
+from maize.util.db_wrapper import DBWrapper2
+from maize.util.hash import std_hash
+from maize.util.ints import uint32, uint64
+from maize.wallet.db_wallet.db_wallet_puzzles import ACS_MU_PH
+from maize.wallet.nft_wallet.nft_wallet import NFTWallet
+from maize.wallet.outer_puzzles import AssetType
+from maize.wallet.payment import Payment
+from maize.wallet.puzzle_drivers import PuzzleInfo, Solver
+from maize.wallet.puzzles.load_clvm import load_clvm
+from maize.wallet.trade_record import TradeRecord
+from maize.wallet.trading.offer import NotarizedPayment, Offer
+from maize.wallet.trading.trade_status import TradeStatus
+from maize.wallet.trading.trade_store import TradeStore
+from maize.wallet.transaction_record import TransactionRecord
+from maize.wallet.util.transaction_type import TransactionType
+from maize.wallet.util.wallet_types import WalletType
+from maize.wallet.wallet import Wallet
+from maize.wallet.wallet_coin_record import WalletCoinRecord
 
 OFFER_MOD = load_clvm("settlement_payments.clvm")
 
@@ -46,7 +46,7 @@ class TradeManager:
     assets with this trade manager:
 
     Puzzle Drivers:
-      - See chia/wallet/outer_puzzles.py for a full description of how to build these
+      - See maize/wallet/outer_puzzles.py for a full description of how to build these
       - The `solve` method must be able to be solved by a Solver that looks like this:
             Solver(
                 {
@@ -120,7 +120,7 @@ class TradeManager:
         return None
 
     async def coins_of_interest_farmed(
-        self, coin_state: CoinState, fork_height: Optional[uint32], peer: WSChiaConnection
+        self, coin_state: CoinState, fork_height: Optional[uint32], peer: WSMaizeConnection
     ) -> None:
         """
         If both our coins and other coins in trade got removed that means that trade was successfully executed
@@ -588,7 +588,7 @@ class TradeManager:
             if exists is None:
                 await wsm.create_wallet_for_puzzle_info(offer.driver_dict[key])
 
-    async def check_offer_validity(self, offer: Offer, peer: WSChiaConnection) -> bool:
+    async def check_offer_validity(self, offer: Offer, peer: WSMaizeConnection) -> bool:
         all_removals: List[Coin] = offer.bundle.removals()
         all_removal_names: List[bytes32] = [c.name() for c in all_removals]
         non_ephemeral_removals: List[Coin] = list(
@@ -692,7 +692,7 @@ class TradeManager:
     async def respond_to_offer(
         self,
         offer: Offer,
-        peer: WSChiaConnection,
+        peer: WSMaizeConnection,
         solver: Optional[Solver] = None,
         fee: uint64 = uint64(0),
         min_coin_amount: Optional[uint64] = None,

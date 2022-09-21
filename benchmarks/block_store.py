@@ -18,18 +18,18 @@ from utils import (
 )
 
 from benchmarks.utils import clvm_generator
-from chia.consensus.block_record import BlockRecord
-from chia.full_node.block_store import BlockStore
-from chia.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
-from chia.types.blockchain_format.pool_target import PoolTarget
-from chia.types.blockchain_format.program import SerializedProgram
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.reward_chain_block import RewardChainBlock
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from chia.types.full_block import FullBlock
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.ints import uint8, uint32, uint64, uint128
+from maize.consensus.block_record import BlockRecord
+from maize.full_node.block_store import BlockStore
+from maize.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
+from maize.types.blockchain_format.pool_target import PoolTarget
+from maize.types.blockchain_format.program import SerializedProgram
+from maize.types.blockchain_format.proof_of_space import ProofOfSpace
+from maize.types.blockchain_format.reward_chain_block import RewardChainBlock
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from maize.types.full_block import FullBlock
+from maize.util.db_wrapper import DBWrapper2
+from maize.util.ints import uint8, uint32, uint64, uint128
 
 NUM_ITERS = 20000
 

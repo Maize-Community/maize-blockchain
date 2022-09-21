@@ -1,6 +1,6 @@
 if __name__ == "__main__":
-    from chia.util.default_root import DEFAULT_ROOT_PATH
-    from chia.simulator.block_tools import create_block_tools, test_constants
+    from maize.util.default_root import DEFAULT_ROOT_PATH
+    from maize.simulator.block_tools import create_block_tools, test_constants
     from tests.util.keyring import TempKeyring
 
     with TempKeyring() as keychain:

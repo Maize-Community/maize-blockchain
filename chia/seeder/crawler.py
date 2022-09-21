@@ -9,16 +9,16 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import aiosqlite
 
-import chia.server.ws_connection as ws
-from chia.consensus.constants import ConsensusConstants
-from chia.full_node.coin_store import CoinStore
-from chia.protocols import full_node_protocol
-from chia.seeder.crawl_store import CrawlStore
-from chia.seeder.peer_record import PeerRecord, PeerReliability
-from chia.server.server import ChiaServer
-from chia.types.peer_info import PeerInfo
-from chia.util.path import path_from_root
-from chia.util.ints import uint32, uint64
+import maize.server.ws_connection as ws
+from maize.consensus.constants import ConsensusConstants
+from maize.full_node.coin_store import CoinStore
+from maize.protocols import full_node_protocol
+from maize.seeder.crawl_store import CrawlStore
+from maize.seeder.peer_record import PeerRecord, PeerReliability
+from maize.server.server import MaizeServer
+from maize.types.peer_info import PeerInfo
+from maize.util.path import path_from_root
+from maize.util.ints import uint32, uint64
 
 log = logging.getLogger(__name__)
 
@@ -82,7 +82,7 @@ class Crawler:
         return await self.server.start_client(peer_info, on_connect)
 
     async def connect_task(self, peer):
-        async def peer_action(peer: ws.WSChiaConnection):
+        async def peer_action(peer: ws.WSMaizeConnection):
 
             peer_info = peer.get_peer_info()
             version = peer.get_version()
@@ -323,14 +323,14 @@ class Crawler:
         except Exception as e:
             self.log.error(f"Exception: {e}. Traceback: {traceback.format_exc()}.")
 
-    def set_server(self, server: ChiaServer):
+    def set_server(self, server: MaizeServer):
         self.server = server
 
     def _state_changed(self, change: str, change_data: Optional[Dict[str, Any]] = None):
         if self.state_changed_callback is not None:
             self.state_changed_callback(change, change_data)
 
-    async def new_peak(self, request: full_node_protocol.NewPeak, peer: ws.WSChiaConnection):
+    async def new_peak(self, request: full_node_protocol.NewPeak, peer: ws.WSMaizeConnection):
         try:
             peer_info = peer.get_peer_info()
             tls_version = peer.get_tls_version()
@@ -345,7 +345,7 @@ class Crawler:
         except Exception as e:
             self.log.error(f"Exception: {e}. Traceback: {traceback.format_exc()}.")
 
-    async def on_connect(self, connection: ws.WSChiaConnection):
+    async def on_connect(self, connection: ws.WSMaizeConnection):
         pass
 
     def _close(self):

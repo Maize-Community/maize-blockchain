@@ -10,15 +10,15 @@ from typing import Any, Dict
 import click
 from aiohttp import web
 
-from chia.data_layer.download_data import is_filename_valid
-from chia.server.upnp import UPnP
-from chia.util.chia_logging import initialize_logging
-from chia.util.config import load_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.util.path import path_from_root
-from chia.util.setproctitle import setproctitle
+from maize.data_layer.download_data import is_filename_valid
+from maize.server.upnp import UPnP
+from maize.util.maize_logging import initialize_logging
+from maize.util.config import load_config
+from maize.util.default_root import DEFAULT_ROOT_PATH
+from maize.util.path import path_from_root
+from maize.util.setproctitle import setproctitle
 
-# from chia.cmds.chia import monkey_patch_click
+# from maize.cmds.maize import monkey_patch_click
 
 
 # See: https://bugs.python.org/issue29288

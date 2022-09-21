@@ -3,23 +3,23 @@ from typing import List, Optional, Set, Tuple
 
 import pytest
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.blockchain import Blockchain, ReceiveBlockResult
-from chia.consensus.coinbase import create_farmer_coin, create_pool_coin
-from chia.full_node.block_store import BlockStore
-from chia.full_node.coin_store import CoinStore
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.types.blockchain_format.coin import Coin
-from chia.types.coin_record import CoinRecord
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator
-from chia.util.generator_tools import tx_removals_and_additions
-from chia.util.hash import std_hash
-from chia.util.ints import uint64, uint32
+from maize.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from maize.consensus.blockchain import Blockchain, ReceiveBlockResult
+from maize.consensus.coinbase import create_farmer_coin, create_pool_coin
+from maize.full_node.block_store import BlockStore
+from maize.full_node.coin_store import CoinStore
+from maize.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from maize.types.blockchain_format.coin import Coin
+from maize.types.coin_record import CoinRecord
+from maize.types.full_block import FullBlock
+from maize.types.generator_types import BlockGenerator
+from maize.util.generator_tools import tx_removals_and_additions
+from maize.util.hash import std_hash
+from maize.util.ints import uint64, uint32
 from tests.blockchain.blockchain_test_utils import _validate_and_add_block
-from chia.simulator.wallet_tools import WalletTool
+from maize.simulator.wallet_tools import WalletTool
 from tests.setup_nodes import test_constants
-from chia.types.blockchain_format.sized_bytes import bytes32
+from maize.types.blockchain_format.sized_bytes import bytes32
 from tests.util.db_connection import DBConnection
 
 constants = test_constants

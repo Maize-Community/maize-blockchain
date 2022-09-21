@@ -1,10 +1,10 @@
 from secrets import token_bytes
 import pytest
 
-from chia.types.blockchain_format.coin import Coin
-from chia.util.ints import uint64
+from maize.types.blockchain_format.coin import Coin
+from maize.util.ints import uint64
 
-from chia.wallet.wallet_interested_store import WalletInterestedStore
+from maize.wallet.wallet_interested_store import WalletInterestedStore
 from tests.util.db_connection import DBConnection
 
 

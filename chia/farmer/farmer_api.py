@@ -5,32 +5,32 @@ from typing import Any, Dict, List, Optional, Tuple
 import aiohttp
 from blspy import AugSchemeMPL, G2Element, PrivateKey
 
-import chia.server.ws_connection as ws
-from chia import __version__
-from chia.consensus.pot_iterations import calculate_iterations_quality, calculate_sp_interval_iters
-from chia.farmer.farmer import Farmer
-from chia.protocols import farmer_protocol, harvester_protocol
-from chia.protocols.harvester_protocol import (
+import maize.server.ws_connection as ws
+from maize import __version__
+from maize.consensus.pot_iterations import calculate_iterations_quality, calculate_sp_interval_iters
+from maize.farmer.farmer import Farmer
+from maize.protocols import farmer_protocol, harvester_protocol
+from maize.protocols.harvester_protocol import (
     PlotSyncDone,
     PlotSyncPathList,
     PlotSyncPlotList,
     PlotSyncStart,
     PoolDifficulty,
 )
-from chia.protocols.pool_protocol import (
+from maize.protocols.pool_protocol import (
     PoolErrorCode,
     PostPartialPayload,
     PostPartialRequest,
     get_current_authentication_token,
 )
-from chia.protocols.protocol_message_types import ProtocolMessageTypes
-from chia.server.outbound_message import NodeType, make_msg
-from chia.server.server import ssl_context_for_root
-from chia.ssl.create_ssl import get_mozilla_ca_crt
-from chia.types.blockchain_format.pool_target import PoolTarget
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.util.api_decorators import api_request, peer_required
-from chia.util.ints import uint32, uint64
+from maize.protocols.protocol_message_types import ProtocolMessageTypes
+from maize.server.outbound_message import NodeType, make_msg
+from maize.server.server import ssl_context_for_root
+from maize.ssl.create_ssl import get_mozilla_ca_crt
+from maize.types.blockchain_format.pool_target import PoolTarget
+from maize.types.blockchain_format.proof_of_space import ProofOfSpace
+from maize.util.api_decorators import api_request, peer_required
+from maize.util.ints import uint32, uint64
 
 
 def strip_old_entries(pairs: List[Tuple[float, Any]], before: float) -> List[Tuple[float, Any]]:
@@ -52,7 +52,7 @@ class FarmerAPI:
     @api_request
     @peer_required
     async def new_proof_of_space(
-        self, new_proof_of_space: harvester_protocol.NewProofOfSpace, peer: ws.WSChiaConnection
+        self, new_proof_of_space: harvester_protocol.NewProofOfSpace, peer: ws.WSMaizeConnection
     ):
         """
         This is a response from the harvester, for a NewChallenge. Here we check if the proof
@@ -239,7 +239,7 @@ class FarmerAPI:
                             f"{pool_url}/partial",
                             json=post_partial_request.to_json_dict(),
                             ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.farmer.log),
-                            headers={"User-Agent": f"Chia Blockchain v.{__version__}"},
+                            headers={"User-Agent": f"Maize Blockchain v.{__version__}"},
                         ) as resp:
                             if resp.ok:
                                 pool_response: Dict = json.loads(await resp.text())
@@ -529,40 +529,40 @@ class FarmerAPI:
 
     @api_request
     @peer_required
-    async def respond_plots(self, _: harvester_protocol.RespondPlots, peer: ws.WSChiaConnection):
+    async def respond_plots(self, _: harvester_protocol.RespondPlots, peer: ws.WSMaizeConnection):
         self.farmer.log.warning(f"Respond plots came too late from: {peer.get_peer_logging()}")
 
     @api_request
     @peer_required
-    async def plot_sync_start(self, message: PlotSyncStart, peer: ws.WSChiaConnection):
+    async def plot_sync_start(self, message: PlotSyncStart, peer: ws.WSMaizeConnection):
         await self.farmer.plot_sync_receivers[peer.peer_node_id].sync_started(message)
 
     @api_request
     @peer_required
-    async def plot_sync_loaded(self, message: PlotSyncPlotList, peer: ws.WSChiaConnection):
+    async def plot_sync_loaded(self, message: PlotSyncPlotList, peer: ws.WSMaizeConnection):
         await self.farmer.plot_sync_receivers[peer.peer_node_id].process_loaded(message)
 
     @api_request
     @peer_required
-    async def plot_sync_removed(self, message: PlotSyncPathList, peer: ws.WSChiaConnection):
+    async def plot_sync_removed(self, message: PlotSyncPathList, peer: ws.WSMaizeConnection):
         await self.farmer.plot_sync_receivers[peer.peer_node_id].process_removed(message)
 
     @api_request
     @peer_required
-    async def plot_sync_invalid(self, message: PlotSyncPathList, peer: ws.WSChiaConnection):
+    async def plot_sync_invalid(self, message: PlotSyncPathList, peer: ws.WSMaizeConnection):
         await self.farmer.plot_sync_receivers[peer.peer_node_id].process_invalid(message)
 
     @api_request
     @peer_required
-    async def plot_sync_keys_missing(self, message: PlotSyncPathList, peer: ws.WSChiaConnection):
+    async def plot_sync_keys_missing(self, message: PlotSyncPathList, peer: ws.WSMaizeConnection):
         await self.farmer.plot_sync_receivers[peer.peer_node_id].process_keys_missing(message)
 
     @api_request
     @peer_required
-    async def plot_sync_duplicates(self, message: PlotSyncPathList, peer: ws.WSChiaConnection):
+    async def plot_sync_duplicates(self, message: PlotSyncPathList, peer: ws.WSMaizeConnection):
         await self.farmer.plot_sync_receivers[peer.peer_node_id].process_duplicates(message)
 
     @api_request
     @peer_required
-    async def plot_sync_done(self, message: PlotSyncDone, peer: ws.WSChiaConnection):
+    async def plot_sync_done(self, message: PlotSyncDone, peer: ws.WSMaizeConnection):
         await self.farmer.plot_sync_receivers[peer.peer_node_id].sync_done(message)

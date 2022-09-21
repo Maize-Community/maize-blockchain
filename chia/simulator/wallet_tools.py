@@ -3,20 +3,20 @@ from typing import Any, Dict, List, Optional, Tuple
 from blspy import AugSchemeMPL, G1Element, G2Element, PrivateKey
 from clvm.casts import int_from_bytes, int_to_bytes
 
-from chia.consensus.constants import ConsensusConstants
-from chia.types.announcement import Announcement
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_spend import CoinSpend
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.condition_with_args import ConditionWithArgs
-from chia.types.spend_bundle import SpendBundle
-from chia.util.condition_tools import conditions_by_opcode, conditions_for_solution
-from chia.util.hash import std_hash
-from chia.util.ints import uint32, uint64
-from chia.wallet.derive_keys import master_sk_to_wallet_sk
-from chia.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
+from maize.consensus.constants import ConsensusConstants
+from maize.types.announcement import Announcement
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.program import Program, SerializedProgram
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.coin_spend import CoinSpend
+from maize.types.condition_opcodes import ConditionOpcode
+from maize.types.condition_with_args import ConditionWithArgs
+from maize.types.spend_bundle import SpendBundle
+from maize.util.condition_tools import conditions_by_opcode, conditions_for_solution
+from maize.util.hash import std_hash
+from maize.util.ints import uint32, uint64
+from maize.wallet.derive_keys import master_sk_to_wallet_sk
+from maize.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
     DEFAULT_HIDDEN_PUZZLE_HASH,
     calculate_synthetic_secret_key,
     puzzle_for_pk,

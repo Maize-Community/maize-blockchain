@@ -4,12 +4,12 @@ from typing import Dict, List, Optional, Set, Tuple
 
 from blspy import G1Element
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.db_wrapper import DBWrapper2, execute_fetchone
-from chia.util.ints import uint32
-from chia.util.lru_cache import LRUCache
-from chia.wallet.derivation_record import DerivationRecord
-from chia.wallet.util.wallet_types import WalletType
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.db_wrapper import DBWrapper2, execute_fetchone
+from maize.util.ints import uint32
+from maize.util.lru_cache import LRUCache
+from maize.wallet.derivation_record import DerivationRecord
+from maize.wallet.util.wallet_types import WalletType
 
 log = logging.getLogger(__name__)
 

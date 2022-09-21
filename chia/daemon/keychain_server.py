@@ -1,11 +1,11 @@
 import logging
 
 from blspy import PrivateKey
-from chia.cmds.init_funcs import check_keys
-from chia.util.errors import KeychainException, KeychainFingerprintNotFound
-from chia.util.ints import uint32
-from chia.util.keychain import KeyData, Keychain
-from chia.util.streamable import streamable, Streamable
+from maize.cmds.init_funcs import check_keys
+from maize.util.errors import KeychainException, KeychainFingerprintNotFound
+from maize.util.ints import uint32
+from maize.util.keychain import KeyData, Keychain
+from maize.util.streamable import streamable, Streamable
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Type

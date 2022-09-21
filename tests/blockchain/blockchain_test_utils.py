@@ -1,10 +1,10 @@
 from typing import Optional, List
 
-from chia.consensus.blockchain import Blockchain, ReceiveBlockResult
-from chia.consensus.multiprocess_validation import PreValidationResult
-from chia.types.full_block import FullBlock
-from chia.util.errors import Err
-from chia.util.ints import uint64, uint32
+from maize.consensus.blockchain import Blockchain, ReceiveBlockResult
+from maize.consensus.multiprocess_validation import PreValidationResult
+from maize.types.full_block import FullBlock
+from maize.util.errors import Err
+from maize.util.ints import uint64, uint32
 
 
 async def check_block_store_invariant(bc: Blockchain):

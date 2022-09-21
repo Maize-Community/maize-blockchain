@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Dict, Optional, Union
 
-from chia.types.mempool_inclusion_status import MempoolInclusionStatus
-from chia.util.ints import uint8
-from chia.util.streamable import Streamable, streamable
+from maize.types.mempool_inclusion_status import MempoolInclusionStatus
+from maize.util.ints import uint8
+from maize.util.streamable import Streamable, streamable
 
 
 @streamable

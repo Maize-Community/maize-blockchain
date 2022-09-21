@@ -4,13 +4,13 @@ from typing import List, Optional, Tuple, Set
 
 import aiosqlite
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.mempool_inclusion_status import MempoolInclusionStatus
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.errors import Err
-from chia.util.ints import uint8, uint32
-from chia.wallet.trade_record import TradeRecord
-from chia.wallet.trading.trade_status import TradeStatus
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.mempool_inclusion_status import MempoolInclusionStatus
+from maize.util.db_wrapper import DBWrapper2
+from maize.util.errors import Err
+from maize.util.ints import uint8, uint32
+from maize.wallet.trade_record import TradeRecord
+from maize.wallet.trading.trade_status import TradeStatus
 
 
 async def migrate_coin_of_interest(log: logging.Logger, db: aiosqlite.Connection) -> None:

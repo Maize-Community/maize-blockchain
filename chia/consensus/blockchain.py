@@ -10,43 +10,43 @@ from multiprocessing.context import BaseContext
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
 
-from chia.consensus.block_body_validation import validate_block_body
-from chia.consensus.block_header_validation import validate_unfinished_header_block
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.blockchain_interface import BlockchainInterface
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.cost_calculator import NPCResult
-from chia.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
-from chia.consensus.find_fork_point import find_fork_point_in_chain
-from chia.consensus.full_block_to_block_record import block_to_block_record
-from chia.consensus.multiprocess_validation import (
+from maize.consensus.block_body_validation import validate_block_body
+from maize.consensus.block_header_validation import validate_unfinished_header_block
+from maize.consensus.block_record import BlockRecord
+from maize.consensus.blockchain_interface import BlockchainInterface
+from maize.consensus.constants import ConsensusConstants
+from maize.consensus.cost_calculator import NPCResult
+from maize.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
+from maize.consensus.find_fork_point import find_fork_point_in_chain
+from maize.consensus.full_block_to_block_record import block_to_block_record
+from maize.consensus.multiprocess_validation import (
     PreValidationResult,
     _run_generator,
     pre_validate_blocks_multiprocessing,
 )
-from chia.full_node.block_height_map import BlockHeightMap
-from chia.full_node.block_store import BlockStore
-from chia.full_node.coin_store import CoinStore
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.types.block_protocol import BlockInfo
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from chia.types.blockchain_format.vdf import VDFInfo
-from chia.types.coin_record import CoinRecord
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator
-from chia.types.header_block import HeaderBlock
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.types.unfinished_header_block import UnfinishedHeaderBlock
-from chia.types.weight_proof import SubEpochChallengeSegment
-from chia.util.errors import ConsensusError, Err
-from chia.util.generator_tools import get_block_header, tx_removals_and_additions
-from chia.util.inline_executor import InlineExecutor
-from chia.util.ints import uint16, uint32, uint64, uint128
-from chia.util.setproctitle import getproctitle, setproctitle
+from maize.full_node.block_height_map import BlockHeightMap
+from maize.full_node.block_store import BlockStore
+from maize.full_node.coin_store import CoinStore
+from maize.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from maize.types.block_protocol import BlockInfo
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.program import SerializedProgram
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from maize.types.blockchain_format.vdf import VDFInfo
+from maize.types.coin_record import CoinRecord
+from maize.types.end_of_slot_bundle import EndOfSubSlotBundle
+from maize.types.full_block import FullBlock
+from maize.types.generator_types import BlockGenerator
+from maize.types.header_block import HeaderBlock
+from maize.types.unfinished_block import UnfinishedBlock
+from maize.types.unfinished_header_block import UnfinishedHeaderBlock
+from maize.types.weight_proof import SubEpochChallengeSegment
+from maize.util.errors import ConsensusError, Err
+from maize.util.generator_tools import get_block_header, tx_removals_and_additions
+from maize.util.inline_executor import InlineExecutor
+from maize.util.ints import uint16, uint32, uint64, uint128
+from maize.util.setproctitle import getproctitle, setproctitle
 
 log = logging.getLogger(__name__)
 

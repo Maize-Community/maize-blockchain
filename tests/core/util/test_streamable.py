@@ -10,15 +10,15 @@ from blspy import G1Element
 from clvm_tools import binutils
 from typing_extensions import Literal, get_args
 
-from chia.protocols.wallet_protocol import RespondRemovals
-from chia.simulator.block_tools import BlockTools
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes4, bytes32
-from chia.types.full_block import FullBlock
-from chia.types.weight_proof import SubEpochChallengeSegment
-from chia.util.ints import uint8, uint32, uint64
-from chia.util.streamable import (
+from maize.protocols.wallet_protocol import RespondRemovals
+from maize.simulator.block_tools import BlockTools
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.program import Program
+from maize.types.blockchain_format.sized_bytes import bytes4, bytes32
+from maize.types.full_block import FullBlock
+from maize.types.weight_proof import SubEpochChallengeSegment
+from maize.util.ints import uint8, uint32, uint64
+from maize.util.streamable import (
     ConversionError,
     DefinitionError,
     InvalidSizeError,

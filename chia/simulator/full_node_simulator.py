@@ -3,23 +3,23 @@ import itertools
 import time
 from typing import Collection, Dict, Iterator, List, Optional, Set, Tuple
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.multiprocess_validation import PreValidationResult
-from chia.full_node.full_node import FullNode
-from chia.full_node.full_node_api import FullNodeAPI
-from chia.protocols.full_node_protocol import RespondBlock
-from chia.simulator.block_tools import BlockTools
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol, GetAllCoinsProtocol, ReorgProtocol
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_record import CoinRecord
-from chia.types.full_block import FullBlock
-from chia.util.config import lock_and_load_config, save_config
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.util.wallet_types import AmountWithPuzzlehash
-from chia.wallet.wallet import Wallet
+from maize.consensus.block_record import BlockRecord
+from maize.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from maize.consensus.multiprocess_validation import PreValidationResult
+from maize.full_node.full_node import FullNode
+from maize.full_node.full_node_api import FullNodeAPI
+from maize.protocols.full_node_protocol import RespondBlock
+from maize.simulator.block_tools import BlockTools
+from maize.simulator.simulator_protocol import FarmNewBlockProtocol, GetAllCoinsProtocol, ReorgProtocol
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.coin_record import CoinRecord
+from maize.types.full_block import FullBlock
+from maize.util.config import lock_and_load_config, save_config
+from maize.util.ints import uint8, uint32, uint64, uint128
+from maize.wallet.transaction_record import TransactionRecord
+from maize.wallet.util.wallet_types import AmountWithPuzzlehash
+from maize.wallet.wallet import Wallet
 
 
 def backoff_times(

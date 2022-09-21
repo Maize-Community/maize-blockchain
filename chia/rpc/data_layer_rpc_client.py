@@ -1,9 +1,9 @@
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from chia.rpc.rpc_client import RpcClient
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint64
+from maize.rpc.rpc_client import RpcClient
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.ints import uint64
 
 
 class DataLayerRpcClient(RpcClient):

@@ -1,7 +1,7 @@
 import pytest
 
-from chia import __version__
-from chia.daemon.client import connect_to_daemon
+from maize import __version__
+from maize.daemon.client import connect_to_daemon
 
 
 class TestDaemonRpc:

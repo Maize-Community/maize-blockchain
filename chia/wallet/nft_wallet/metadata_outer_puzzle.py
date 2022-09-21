@@ -3,13 +3,13 @@ from typing import Callable, List, Optional, Tuple
 
 from clvm_tools.binutils import disassemble
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint64
-from chia.wallet.puzzle_drivers import PuzzleInfo, Solver
-from chia.wallet.puzzles.load_clvm import load_clvm
-from chia.wallet.uncurried_puzzle import UncurriedPuzzle, uncurry_puzzle
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.program import Program
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.ints import uint64
+from maize.wallet.puzzle_drivers import PuzzleInfo, Solver
+from maize.wallet.puzzles.load_clvm import load_clvm
+from maize.wallet.uncurried_puzzle import UncurriedPuzzle, uncurry_puzzle
 
 NFT_STATE_LAYER_MOD = load_clvm("nft_state_layer.clvm")
 NFT_STATE_LAYER_MOD_HASH = NFT_STATE_LAYER_MOD.get_tree_hash()

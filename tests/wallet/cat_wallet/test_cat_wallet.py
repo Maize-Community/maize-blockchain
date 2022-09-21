@@ -3,21 +3,21 @@ from typing import List
 
 import pytest
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.full_node.mempool_manager import MempoolManager
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol, ReorgProtocol
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.peer_info import PeerInfo
-from chia.util.ints import uint16, uint32, uint64
-from chia.wallet.cat_wallet.cat_constants import DEFAULT_CATS
-from chia.wallet.cat_wallet.cat_info import LegacyCATInfo
-from chia.wallet.cat_wallet.cat_utils import construct_cat_puzzle
-from chia.wallet.cat_wallet.cat_wallet import CATWallet
-from chia.wallet.puzzles.cat_loader import CAT_MOD
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.wallet_info import WalletInfo
-from chia.simulator.time_out_assert import time_out_assert
+from maize.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from maize.full_node.mempool_manager import MempoolManager
+from maize.simulator.simulator_protocol import FarmNewBlockProtocol, ReorgProtocol
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.peer_info import PeerInfo
+from maize.util.ints import uint16, uint32, uint64
+from maize.wallet.cat_wallet.cat_constants import DEFAULT_CATS
+from maize.wallet.cat_wallet.cat_info import LegacyCATInfo
+from maize.wallet.cat_wallet.cat_utils import construct_cat_puzzle
+from maize.wallet.cat_wallet.cat_wallet import CATWallet
+from maize.wallet.puzzles.cat_loader import CAT_MOD
+from maize.wallet.transaction_record import TransactionRecord
+from maize.wallet.wallet_info import WalletInfo
+from maize.simulator.time_out_assert import time_out_assert
 from tests.util.wallet_is_synced import wallet_is_synced
 
 

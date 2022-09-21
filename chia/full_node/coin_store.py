@@ -7,17 +7,17 @@ from typing import List, Optional, Set, Dict, Any, Tuple, Union
 import typing_extensions
 from aiosqlite import Cursor
 
-from chia.protocols.wallet_protocol import CoinState
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_record import CoinRecord
-from chia.util.db_wrapper import DBWrapper2, SQLITE_MAX_VARIABLE_NUMBER
-from chia.util.ints import uint32, uint64
-from chia.util.chunks import chunks
+from maize.protocols.wallet_protocol import CoinState
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.coin_record import CoinRecord
+from maize.util.db_wrapper import DBWrapper2, SQLITE_MAX_VARIABLE_NUMBER
+from maize.util.ints import uint32, uint64
+from maize.util.chunks import chunks
 import time
 import logging
 
-from chia.util.lru_cache import LRUCache
+from maize.util.lru_cache import LRUCache
 
 log = logging.getLogger(__name__)
 

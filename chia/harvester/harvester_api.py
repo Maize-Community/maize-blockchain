@@ -5,20 +5,20 @@ from typing import List, Tuple
 
 from blspy import AugSchemeMPL, G1Element, G2Element
 
-from chia.consensus.pot_iterations import calculate_iterations_quality, calculate_sp_interval_iters
-from chia.harvester.harvester import Harvester
-from chia.plotting.util import PlotInfo, parse_plot_info
-from chia.protocols import harvester_protocol
-from chia.protocols.farmer_protocol import FarmingInfo
-from chia.protocols.harvester_protocol import Plot, PlotSyncResponse
-from chia.protocols.protocol_message_types import ProtocolMessageTypes
-from chia.server.outbound_message import make_msg
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.api_decorators import api_request, peer_required
-from chia.util.ints import uint8, uint32, uint64
-from chia.wallet.derive_keys import master_sk_to_local_sk
+from maize.consensus.pot_iterations import calculate_iterations_quality, calculate_sp_interval_iters
+from maize.harvester.harvester import Harvester
+from maize.plotting.util import PlotInfo, parse_plot_info
+from maize.protocols import harvester_protocol
+from maize.protocols.farmer_protocol import FarmingInfo
+from maize.protocols.harvester_protocol import Plot, PlotSyncResponse
+from maize.protocols.protocol_message_types import ProtocolMessageTypes
+from maize.server.outbound_message import make_msg
+from maize.server.ws_connection import WSMaizeConnection
+from maize.types.blockchain_format.proof_of_space import ProofOfSpace
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.api_decorators import api_request, peer_required
+from maize.util.ints import uint8, uint32, uint64
+from maize.wallet.derive_keys import master_sk_to_local_sk
 
 
 class HarvesterAPI:
@@ -30,7 +30,7 @@ class HarvesterAPI:
     @peer_required
     @api_request
     async def harvester_handshake(
-        self, harvester_handshake: harvester_protocol.HarvesterHandshake, peer: WSChiaConnection
+        self, harvester_handshake: harvester_protocol.HarvesterHandshake, peer: WSMaizeConnection
     ):
         """
         Handshake between the harvester and farmer. The harvester receives the pool public keys,
@@ -47,7 +47,7 @@ class HarvesterAPI:
     @peer_required
     @api_request
     async def new_signage_point_harvester(
-        self, new_challenge: harvester_protocol.NewSignagePointHarvester, peer: WSChiaConnection
+        self, new_challenge: harvester_protocol.NewSignagePointHarvester, peer: WSMaizeConnection
     ):
         """
         The harvester receives a new signage point from the farmer, this happens at the start of each slot.

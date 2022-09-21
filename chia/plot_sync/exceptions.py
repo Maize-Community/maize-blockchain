@@ -1,9 +1,9 @@
 from typing import Any
 
-from chia.plot_sync.util import ErrorCodes, State
-from chia.protocols.harvester_protocol import PlotSyncIdentifier
-from chia.server.ws_connection import NodeType
-from chia.util.ints import uint64
+from maize.plot_sync.util import ErrorCodes, State
+from maize.protocols.harvester_protocol import PlotSyncIdentifier
+from maize.server.ws_connection import NodeType
+from maize.util.ints import uint64
 
 
 class PlotSyncException(Exception):

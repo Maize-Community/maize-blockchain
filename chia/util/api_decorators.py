@@ -3,21 +3,21 @@ import logging
 from inspect import signature
 from typing import Any, Callable, Coroutine, List, Optional, Union
 
-from chia.protocols.protocol_message_types import ProtocolMessageTypes
-from chia.server.outbound_message import Message
-from chia.server.ws_connection import WSChiaConnection
-from chia.util.streamable import Streamable, _T_Streamable
+from maize.protocols.protocol_message_types import ProtocolMessageTypes
+from maize.server.outbound_message import Message
+from maize.server.ws_connection import WSMaizeConnection
+from maize.util.streamable import Streamable, _T_Streamable
 
 log = logging.getLogger(__name__)
 
 converted_api_f_type = Union[
     Callable[[Union[bytes, _T_Streamable]], Coroutine[Any, Any, Optional[Message]]],
-    Callable[[Union[bytes, _T_Streamable], WSChiaConnection], Coroutine[Any, Any, Optional[Message]]],
+    Callable[[Union[bytes, _T_Streamable], WSMaizeConnection], Coroutine[Any, Any, Optional[Message]]],
 ]
 
 initial_api_f_type = Union[
     Callable[[Any, _T_Streamable], Coroutine[Any, Any, Optional[Message]]],
-    Callable[[Any, _T_Streamable, WSChiaConnection], Coroutine[Any, Any, Optional[Message]]],
+    Callable[[Any, _T_Streamable, WSMaizeConnection], Coroutine[Any, Any, Optional[Message]]],
 ]
 
 

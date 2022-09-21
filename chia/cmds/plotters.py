@@ -1,5 +1,5 @@
 import click
-from chia.plotters.plotters import call_plotters
+from maize.plotters.plotters import call_plotters
 
 
 @click.command(

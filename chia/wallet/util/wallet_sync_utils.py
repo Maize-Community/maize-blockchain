@@ -1,15 +1,15 @@
 import asyncio
 
-from chia.protocols.shared_protocol import Capability
+from maize.protocols.shared_protocol import Capability
 import logging
 import random
 from typing import List, Optional, Tuple, Union, Dict
 
 from chia_rs import compute_merkle_set_root
 
-from chia.consensus.constants import ConsensusConstants
-from chia.protocols import wallet_protocol
-from chia.protocols.wallet_protocol import (
+from maize.consensus.constants import ConsensusConstants
+from maize.protocols import wallet_protocol
+from maize.protocols.wallet_protocol import (
     RequestAdditions,
     RequestBlockHeaders,
     RespondAdditions,
@@ -26,19 +26,19 @@ from chia.protocols.wallet_protocol import (
     RejectHeaderBlocks,
     RejectBlockHeaders,
 )
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.blockchain_format.coin import hash_coin_ids, Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.full_block import FullBlock
-from chia.types.header_block import HeaderBlock
-from chia.util.ints import uint32
-from chia.util.merkle_set import confirm_not_included_already_hashed, confirm_included_already_hashed, MerkleSet
-from chia.wallet.util.peer_request_cache import PeerRequestCache
+from maize.server.ws_connection import WSMaizeConnection
+from maize.types.blockchain_format.coin import hash_coin_ids, Coin
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.full_block import FullBlock
+from maize.types.header_block import HeaderBlock
+from maize.util.ints import uint32
+from maize.util.merkle_set import confirm_not_included_already_hashed, confirm_included_already_hashed, MerkleSet
+from maize.wallet.util.peer_request_cache import PeerRequestCache
 
 log = logging.getLogger(__name__)
 
 
-async def fetch_last_tx_from_peer(height: uint32, peer: WSChiaConnection) -> Optional[HeaderBlock]:
+async def fetch_last_tx_from_peer(height: uint32, peer: WSMaizeConnection) -> Optional[HeaderBlock]:
     request_height: int = height
     while True:
         if request_height == -1:
@@ -58,7 +58,7 @@ async def fetch_last_tx_from_peer(height: uint32, peer: WSChiaConnection) -> Opt
 
 async def subscribe_to_phs(
     puzzle_hashes: List[bytes32],
-    peer: WSChiaConnection,
+    peer: WSMaizeConnection,
     min_height: int,
 ) -> List[CoinState]:
     """
@@ -73,7 +73,7 @@ async def subscribe_to_phs(
 
 async def subscribe_to_coin_updates(
     coin_names: List[bytes32],
-    peer: WSChiaConnection,
+    peer: WSMaizeConnection,
     min_height: int,
 ) -> List[CoinState]:
     """
@@ -199,7 +199,7 @@ def validate_removals(
 
 
 async def request_and_validate_removals(
-    peer: WSChiaConnection, height: uint32, header_hash: bytes32, coin_name: bytes32, removals_root: bytes32
+    peer: WSMaizeConnection, height: uint32, header_hash: bytes32, coin_name: bytes32, removals_root: bytes32
 ) -> bool:
     removals_request = RequestRemovals(height, header_hash, [coin_name])
 
@@ -213,7 +213,7 @@ async def request_and_validate_removals(
 
 
 async def request_and_validate_additions(
-    peer: WSChiaConnection,
+    peer: WSMaizeConnection,
     peer_request_cache: PeerRequestCache,
     height: uint32,
     header_hash: bytes32,
@@ -321,7 +321,7 @@ def get_block_header(block):
 
 
 async def request_header_blocks(
-    peer: WSChiaConnection, start_height: uint32, end_height: uint32
+    peer: WSMaizeConnection, start_height: uint32, end_height: uint32
 ) -> Optional[List[HeaderBlock]]:
     if Capability.BLOCK_HEADERS in peer.peer_capabilities:
         response = await peer.request_block_headers(RequestBlockHeaders(start_height, end_height, False))
@@ -333,7 +333,7 @@ async def request_header_blocks(
 
 
 async def _fetch_header_blocks_inner(
-    all_peers: List[Tuple[WSChiaConnection, bool]],
+    all_peers: List[Tuple[WSMaizeConnection, bool]],
     request_start: uint32,
     request_end: uint32,
 ) -> Optional[Union[RespondHeaderBlocks, RespondBlockHeaders]]:
@@ -365,7 +365,7 @@ async def fetch_header_blocks_in_range(
     start: uint32,
     end: uint32,
     peer_request_cache: PeerRequestCache,
-    all_peers: List[Tuple[WSChiaConnection, bool]],
+    all_peers: List[Tuple[WSMaizeConnection, bool]],
 ) -> Optional[List[HeaderBlock]]:
     blocks: List[HeaderBlock] = []
     for i in range(start - (start % 32), end + 1, 32):

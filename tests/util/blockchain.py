@@ -6,14 +6,14 @@ from typing import List, Optional
 import aiosqlite
 import tempfile
 
-from chia.consensus.blockchain import Blockchain
-from chia.consensus.constants import ConsensusConstants
-from chia.full_node.block_store import BlockStore
-from chia.full_node.coin_store import CoinStore
-from chia.types.full_block import FullBlock
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.simulator.block_tools import BlockTools
+from maize.consensus.blockchain import Blockchain
+from maize.consensus.constants import ConsensusConstants
+from maize.full_node.block_store import BlockStore
+from maize.full_node.coin_store import CoinStore
+from maize.types.full_block import FullBlock
+from maize.util.db_wrapper import DBWrapper2
+from maize.util.default_root import DEFAULT_ROOT_PATH
+from maize.simulator.block_tools import BlockTools
 
 
 async def create_blockchain(constants: ConsensusConstants, db_version: int):

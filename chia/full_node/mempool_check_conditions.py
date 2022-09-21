@@ -1,26 +1,26 @@
 import logging
 from typing import Dict, Optional, Tuple
 from chia_rs import MEMPOOL_MODE, NO_NEG_DIV, get_puzzle_and_solution_for_coin as get_puzzle_and_solution_for_coin_rust
-from chia.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.coin import Coin
 
-from chia.consensus.cost_calculator import NPCResult
-from chia.types.spend_bundle_conditions import SpendBundleConditions
-from chia.full_node.generator import setup_generator_args
-from chia.types.coin_record import CoinRecord
-from chia.types.generator_types import BlockGenerator
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.errors import Err
-from chia.util.ints import uint32, uint64, uint16
-from chia.wallet.puzzles.rom_bootstrap_generator import get_generator
-from chia.types.blockchain_format.program import SerializedProgram
-from chia.wallet.puzzles.load_clvm import load_serialized_clvm
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
+from maize.consensus.cost_calculator import NPCResult
+from maize.types.spend_bundle_conditions import SpendBundleConditions
+from maize.full_node.generator import setup_generator_args
+from maize.types.coin_record import CoinRecord
+from maize.types.generator_types import BlockGenerator
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.errors import Err
+from maize.util.ints import uint32, uint64, uint16
+from maize.wallet.puzzles.rom_bootstrap_generator import get_generator
+from maize.types.blockchain_format.program import SerializedProgram
+from maize.wallet.puzzles.load_clvm import load_serialized_clvm
+from maize.consensus.default_constants import DEFAULT_CONSTANTS
 
-from chia.types.blockchain_format.program import Program
+from maize.types.blockchain_format.program import Program
 
 GENERATOR_MOD = get_generator()
 
-DESERIALIZE_MOD = load_serialized_clvm("chialisp_deserialisation.clvm", package_or_requirement="chia.wallet.puzzles")
+DESERIALIZE_MOD = load_serialized_clvm("chialisp_deserialisation.clvm", package_or_requirement="maize.wallet.puzzles")
 
 log = logging.getLogger(__name__)
 

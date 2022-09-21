@@ -1,15 +1,15 @@
 from typing import Iterator, List, Optional, Tuple
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_spend import CoinSpend
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.util.hash import std_hash
-from chia.util.ints import uint64
-from chia.wallet.lineage_proof import LineageProof
-from chia.wallet.puzzles.load_clvm import load_clvm
-from chia.wallet.uncurried_puzzle import UncurriedPuzzle
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.program import Program
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.types.coin_spend import CoinSpend
+from maize.types.condition_opcodes import ConditionOpcode
+from maize.util.hash import std_hash
+from maize.util.ints import uint64
+from maize.wallet.lineage_proof import LineageProof
+from maize.wallet.puzzles.load_clvm import load_clvm
+from maize.wallet.uncurried_puzzle import UncurriedPuzzle
 
 SINGLETON_MOD = load_clvm("singleton_top_layer_v1_1.clvm")
 SINGLETON_MOD_HASH = SINGLETON_MOD.get_tree_hash()

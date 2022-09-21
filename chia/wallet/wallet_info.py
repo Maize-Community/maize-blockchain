@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
-from chia.util.ints import uint8, uint32
-from chia.util.streamable import Streamable, streamable
+from maize.util.ints import uint8, uint32
+from maize.util.streamable import Streamable, streamable
 
 
 @streamable

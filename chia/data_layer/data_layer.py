@@ -9,8 +9,8 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional, Set, Tuple, U
 import aiohttp
 import aiosqlite
 
-from chia.data_layer.data_layer_errors import KeyNotFoundError
-from chia.data_layer.data_layer_util import (
+from maize.data_layer.data_layer_errors import KeyNotFoundError
+from maize.data_layer.data_layer_util import (
     DiffData,
     InternalNode,
     KeyValue,
@@ -28,18 +28,18 @@ from chia.data_layer.data_layer_util import (
     TerminalNode,
     leaf_hash,
 )
-from chia.data_layer.data_layer_wallet import DataLayerWallet, Mirror, SingletonRecord, verify_offer
-from chia.data_layer.data_store import DataStore
-from chia.data_layer.download_data import insert_from_delta_file, write_files_for_root
-from chia.rpc.wallet_rpc_client import WalletRpcClient
-from chia.server.server import ChiaServer
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.db_wrapper import DBWrapper
-from chia.util.ints import uint32, uint64
-from chia.util.path import path_from_root
-from chia.wallet.trade_record import TradeRecord
-from chia.wallet.trading.offer import Offer as TradingOffer
-from chia.wallet.transaction_record import TransactionRecord
+from maize.data_layer.data_layer_wallet import DataLayerWallet, Mirror, SingletonRecord, verify_offer
+from maize.data_layer.data_store import DataStore
+from maize.data_layer.download_data import insert_from_delta_file, write_files_for_root
+from maize.rpc.wallet_rpc_client import WalletRpcClient
+from maize.server.server import MaizeServer
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.db_wrapper import DBWrapper
+from maize.util.ints import uint32, uint64
+from maize.util.path import path_from_root
+from maize.wallet.trade_record import TradeRecord
+from maize.wallet.trading.offer import Offer as TradingOffer
+from maize.wallet.transaction_record import TransactionRecord
 
 
 class DataLayer:
@@ -88,7 +88,7 @@ class DataLayer:
     def _set_state_changed_callback(self, callback: Callable[..., object]) -> None:
         self.state_changed_callback = callback
 
-    def set_server(self, server: ChiaServer) -> None:
+    def set_server(self, server: MaizeServer) -> None:
         self.server = server
 
     async def _start(self) -> bool:

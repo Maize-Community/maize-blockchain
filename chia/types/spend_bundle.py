@@ -6,11 +6,11 @@ from typing import List, Dict, Any
 
 from blspy import AugSchemeMPL, G2Element
 
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.streamable import Streamable, streamable_from_dict, recurse_jsonify, streamable
-from chia.wallet.util.debug_spend_bundle import debug_spend_bundle
+from maize.consensus.default_constants import DEFAULT_CONSTANTS
+from maize.types.blockchain_format.coin import Coin
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.streamable import Streamable, streamable_from_dict, recurse_jsonify, streamable
+from maize.wallet.util.debug_spend_bundle import debug_spend_bundle
 
 from .coin_spend import CoinSpend
 

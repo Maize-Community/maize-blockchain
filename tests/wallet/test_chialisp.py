@@ -1,6 +1,6 @@
 import pytest
 
-from chia.wallet.chialisp import (
+from maize.wallet.chialisp import (
     apply,
     args,
     cons,

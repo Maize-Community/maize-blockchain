@@ -1,8 +1,8 @@
 from typing import Any, Dict
 
-from chia.wallet.key_val_store import KeyValStore
-from chia.wallet.settings.default_settings import default_settings
-from chia.wallet.settings.settings_objects import BackupInitialized
+from maize.wallet.key_val_store import KeyValStore
+from maize.wallet.settings.default_settings import default_settings
+from maize.wallet.settings.settings_objects import BackupInitialized
 
 
 class UserSettings:

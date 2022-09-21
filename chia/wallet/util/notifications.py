@@ -1,7 +1,7 @@
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint64
-from chia.wallet.puzzles.load_clvm import load_clvm
+from maize.types.blockchain_format.program import Program
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.ints import uint64
+from maize.wallet.puzzles.load_clvm import load_clvm
 
 NOTIFICATION_MOD = load_clvm("notification.clvm")
 

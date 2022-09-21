@@ -5,13 +5,13 @@ from typing import Any, Dict, Optional
 
 import aiohttp
 
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.util.hash import std_hash
-from chia.util.path import path_from_root
-from chia.wallet.nft_wallet.nft_info import NFTCoinInfo
-from chia.wallet.nft_wallet.uncurry_nft import UncurriedNFT
+from maize.types.blockchain_format.program import Program
+from maize.types.blockchain_format.sized_bytes import bytes32
+from maize.util.default_root import DEFAULT_ROOT_PATH
+from maize.util.hash import std_hash
+from maize.util.path import path_from_root
+from maize.wallet.nft_wallet.nft_info import NFTCoinInfo
+from maize.wallet.nft_wallet.uncurry_nft import UncurriedNFT
 
 DEFAULT_PREFIX_HASH_LENGTH = 3
 DEFAULT_CACHE_PATH = "nft_cache"
