@@ -227,7 +227,7 @@ jobs:
         echo ::set-output name=MAIZE_DEV_BUILD::${MAIZE_DEV_BUILD}
         echo ${MAIZE_DEV_BUILD}
         pwd
-        aws s3 cp maize-blockchain-gui/release-builds/windows-installer/MaizeSetup-${MAIZE_INSTALLER_VERSION}.exe s3://download.maize.net/dev/MaizeSetup-${MAIZE_DEV_BUILD}.exe
+        aws s3 cp maize-blockchain-gui/release-builds/windows-installer/MaizeSetup-${MAIZE_INSTALLER_VERSION}.exe s3://download.maize.farm/dev/MaizeSetup-${MAIZE_DEV_BUILD}.exe
 
     - name: Create Checksums
       env:
@@ -244,7 +244,7 @@ jobs:
     - name: Create torrent
       if: startsWith(github.ref, 'refs/tags/')
       run: |
-        py3createtorrent -f -t udp://tracker.opentrackr.org:1337/announce ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe -o ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.torrent --webseed https://download.maize.net/install/MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe
+        py3createtorrent -f -t udp://tracker.opentrackr.org:1337/announce ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe -o ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.torrent --webseed https://download.maize.farm/install/MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe
         ls
 
     - name: Upload Dev Installer
@@ -252,8 +252,8 @@ jobs:
       env:
         MAIZE_INSTALLER_VERSION: ${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}
       run: |
-        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe s3://download.maize.net/latest-dev/MaizeSetup-latest-dev.exe
-        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.sha256 s3://download.maize.net/latest-dev/MaizeSetup-latest-dev.exe.sha256
+        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe s3://download.maize.farm/latest-dev/MaizeSetup-latest-dev.exe
+        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.sha256 s3://download.maize.farm/latest-dev/MaizeSetup-latest-dev.exe.sha256
 
     - name: Upload Release Files
       if: steps.check_secrets.outputs.HAS_AWS_SECRET && startsWith(github.ref, 'refs/tags/')
@@ -261,9 +261,9 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.INSTALLER_UPLOAD_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.INSTALLER_UPLOAD_SECRET }}
       run: |
-        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe s3://download.maize.net/install/
-        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.sha256 s3://download.maize.net/install/
-        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.torrent s3://download.maize.net/torrents/
+        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe s3://download.maize.farm/install/
+        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.sha256 s3://download.maize.farm/install/
+        aws s3 cp ${{ github.workspace }}\maize-blockchain-gui\release-builds\windows-installer\MaizeSetup-${{ steps.version_number.outputs.MAIZE_INSTALLER_VERSION }}.exe.torrent s3://download.maize.farm/torrents/
 
     - name: Get tag name
       if: startsWith(github.ref, 'refs/tags/')

@@ -107,9 +107,9 @@ def configure(
             if testnet == "true" or testnet == "t":
                 print("Setting Testnet")
                 testnet_port = "58444"
-                testnet_introducer = "introducer-testnet10.maize.net"
-                testnet_dns_introducer = "dns-introducer-testnet10.maize.net"
-                bootstrap_peers = ["testnet10-node.maize.net"]
+                testnet_introducer = "introducer-testnet10.maize.farm"
+                testnet_dns_introducer = "dns-introducer-testnet10.maize.farm"
+                bootstrap_peers = ["testnet10-node.maize.farm"]
                 testnet = "testnet10"
                 config["full_node"]["port"] = int(testnet_port)
                 if config["full_node"]["introducer_peer"] is None:
@@ -151,9 +151,9 @@ def configure(
             elif testnet == "false" or testnet == "f":
                 print("Setting Mainnet")
                 mainnet_port = "8444"
-                mainnet_introducer = "introducer.maize.net"
-                mainnet_dns_introducer = "dns-introducer.maize.net"
-                bootstrap_peers = ["node.maize.net"]
+                mainnet_introducer = "introducer.maize.farm"
+                mainnet_dns_introducer = "dns-introducer.maize.farm"
+                bootstrap_peers = ["node.maize.farm"]
                 net = "mainnet"
                 config["full_node"]["port"] = int(mainnet_port)
                 config["full_node"]["introducer_peer"]["port"] = int(mainnet_port)

@@ -760,7 +760,7 @@ class MaizeServer:
         try:
             timeout = ClientTimeout(total=15)
             async with ClientSession(timeout=timeout) as session:
-                async with session.get("https://ip.maize.net/") as resp:
+                async with session.get("https://ip.maize.farm/") as resp:
                     if resp.status == 200:
                         ip = str(await resp.text())
                         ip = ip.rstrip()

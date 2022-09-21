@@ -73,10 +73,10 @@ dev_dependencies = [
 
 kwargs = dict(
     name="maize-blockchain",
-    author="Mariano Sorgente",
-    author_email="mariano@maize.net",
+    author="Maize Network",
+    author_email="hello@maize.farm",
     description="Maize blockchain full node, farmer, timelord, and wallet.",
-    url="https://maize.net/",
+    url="https://maize.farm/",
     license="Apache License",
     python_requires=">=3.7, <4",
     keywords="maize blockchain node",
